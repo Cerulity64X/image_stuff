@@ -6,12 +6,24 @@ use bmp::{Image, Pixel, consts::BLACK};
 fn main() -> Result<(), Box<dyn Error>> {
     let mut argv = args();
     argv.next();
+    let manip = &argv.next().expect("No manipulation type supplied")[..];
+
     let fname = match argv.next() {
         Some(st) => st,
         None => Err("No file name supplied!")?
     };
     let img: Image = bmp::open(&fname)?;
     println!("Image loaded.");
+
+    match manip {
+        "sort" => {
+            img_sort(img, &fname, match argv.next() {
+                Some(st) => st == String::from("print"),
+                None => false
+            })
+        }
+        st => panic!("Unknown manipulation type {}!", st)
+    }
     /*let filname = match argv.next() {
         Some(st) => st,
         None => {
@@ -21,10 +33,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
     let filter: Image = bmp::open(&filname).expect(&format!("{} not found!", filname));
     println!("Filter loaded.");*/
-    img_sort(img, &fname, match argv.next() {
-        Some(st) => st == String::from("print"),
-        None => false
-    })
 }
 
 // Sorts by mapping a pixel to a bit field (00000000bbbbbbbbggggggggrrrrrrrr) and comparing
