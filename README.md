@@ -1,5 +1,5 @@
 # Image Stuff
-Cerulity32K's image manipulation program. Only deals with BMP's for now.
+Cerulity32K's image manipulation program. Only deals with BMP files for now.
 
 ## What does it do?
 Stuff!
