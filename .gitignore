@@ -1,3 +1,4 @@
 /target
 /input
 /output/*
+!output/README_out.txt
